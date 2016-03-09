@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+{% autoescape true %}
+<html>
+    <head>
+        <title>Assignment2 Framework</title>
+        <link href='/css/form.css' rel='stylesheet' type='text/css'></link>
+        <!-- include jquery and your js -->
+        <script type = "text/javascript" src = "http://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>	
+        <script src="/js/form.js"></script>
+    </head>
+    <body>
+        <h1>Week 7 - A Simple Form</h1>        
+
+        <!-- 
+        
+        Part 1: Shows what is the current user and show a logout link 
+        
+        -->
+        <div id="header">
+            Welcome <b>{{ user.email() }}</b>.<a href="{{ logout_url | safe }}">Sign out</a>
+        </div>      
+        <br>
+        <!-- 
+        
+        Part 2
+        - Replace the following form with your HTML form created in Assignment 1. You might
+          need to insert other elements of your design elsewhere in this file
+        - By using App Engine template method introduced in Week 7, give user a filled-in form 
+          if there are already filled in data in previous sessions
+        - Instead of just serving a dialog, the "Save" button should use AJAX to 
+          submit the data to server, and server should send a success response
+        
+        -->
+
+        <form id="target"  action="/submit/form" method="POST">            
+            <!--name:<input name="name" type="text"><br><br>
+            age:<input name="age" type="number"><br><br>-->
+			
+			<!-- collect user name -->
+			<div id="name-wrapper">
+				<br>Name:
+				
+				<!-- text input -->
+				<input class="inputStyle" size="18" type="text" id="name" name="name" placeholder="First Name, Last Name">
+				
+				<!-- error message -->
+				<span id="nameError">Invalid name.</span>
+			</div>
+			
+			<!-- collect user gender -->
+			<div id="gender-wrapper">
+				<br>Gender:
+				
+				<!-- M/F, decide what input is best in this case -->
+				<input type="radio" id="gender" name="gender" value="Male" checked="true" />Male
+				<input type="radio" name="gender" value="Female" />Female
+			</div>
+		  
+			<!-- collect user age -->
+			<div id="age-wrapper">
+				<br>Age (0~99):
+				
+				<!-- 0-99, decide what input is best in this case -->
+				<input class="inputStyle" type="number" id="age" name="age" min="0" max="99" step="1" value="0">
+				
+				<!-- error message -->
+				<span id="ageError">Invalid age.</span>
+			</div>
+			
+			<!-- collect user's years of experience -->
+			<div id="experience-wrapper">
+				<br>Years of experience in web development (0~99):
+				
+				<!-- 0-99 decide what input is best in this case -->
+				<input class="inputStyle" type="number" id="experience" name="experience" min="0" max="99" step="1" value="0">
+				
+				<!-- error message -->
+				<span id="experienceError">Invalid years.</span>
+			</div>
+			
+			<!-- collect the anchor url -->
+			<div id="talent-wrapper">
+				<br>Talent tree: 
+				
+				<!-- text input -->   
+				<input class="inputStyle" size="12" type="text" id="url" name="url" placeholder="Input anchor URL">
+				
+				<!-- click this button will open the talent tree in a new tab -->
+				<input class="inputStyle" id="viewBtn" type="button" value="View Talent"/>
+				
+				<!-- error message -->
+				<span id="urlError">Invalid anchor URL.</span>
+			</div>
+			
+			<br>
+            
+            <input type="submit">
+        </form>
+        <br>        
+
+        {% if isAdmin  %}
+        <hr>
+        <br>
+        <div>Admin Only</div>
+        <!--        
+        
+        Part 3: BONUS section         
+        - Display a search box for admin to search records using email
+        - Use AJAX to request the data from server
+        - Use javascript to load the data to the form
+        - Finally, admin can modify the form data for that user and save it        
+        
+        -->       
+        {% endif %}      
+
+        <hr>
+        <div id="footer">Designed  by SHEN Ling (1155071688)</div>
+				
+		<!-- Create a modal dialog box, display after validation result -->		
+		<div id="myModal" class="modal">
+			<div class="modal-content">
+			  <span class="close">×</span>
+			  <p>Your data is saved successfully.</p>
+			</div>
+		</div>
+		
+    </body>
+</html>
+
+{% endautoescape %}
